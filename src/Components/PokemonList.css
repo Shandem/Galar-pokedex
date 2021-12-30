@@ -1,0 +1,13 @@
+.names_list{
+  display: flex;
+  flex-direction: row;
+  flex: left;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 500px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+.card:nth-child(odd){
+    color: sienna;
+}
