@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Showcard from './ShowCard.js/showCard';
 
 const Searchbar = (props) => {
@@ -6,9 +6,9 @@ const Searchbar = (props) => {
     const [enteredNameTouched, setEnternNameTouched] = useState(false)
     const [formIsValid, setFormIsValid] = useState(false)
 
-    const [dex, setDex] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [sprite, setSprite] = useState([])
+    const [mon, setMon] = useState([])
+
   
     const enteredNameIsValid = enteredName.trim() !== ''
     const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched
@@ -29,24 +29,21 @@ const Searchbar = (props) => {
       const nameInputBlurHandeler = event => {
         setEnternNameTouched(true)
       }
-      const fetchMoviesHandler = useCallback(async (url) => {
-        setIsLoading(true)
-        setError(null)
-        try{
-         const responce = await fetch(`${url}`)
-         if (!responce.ok){
-           throw new Error('Somthing went wrong!')
-         }
-         const data = await responce.json()
-       
+      
+      
+    function fetchSearchHandler (enteredName){
+      const url = `https://pokeapi.co/api/v2/pokemon/${enteredName}`
+      fetch(`${url}`)
+        .then(responce => {return responce.json()})
+        .then(data => {
           console.log(data)
-    
-        }
-        catch(error){
-         setError(error.message)
-        }
-        setIsLoading(false)
-      },[]);
+          
+          return setMon(data) 
+          
+        })
+       
+       
+    }
       
       const formSubmissionHandeler = event => {
         event.preventDefault()
@@ -55,15 +52,16 @@ const Searchbar = (props) => {
         if (!enteredName){
           return;
         }
-        
         console.log(enteredName)
         const url = `https://pokeapi.co/api/v2/pokemon/${enteredName}`
         console.log(url)
-        
-        fetchMoviesHandler(url)
+        fetchSearchHandler(enteredName)
+         
         setEnteredName('')
         setEnternNameTouched(false)
       }
+      
+
       const nameInputClasses = enteredNameIsValid 
       ? 'form-control invalid' 
       : 'form-control '
@@ -83,8 +81,9 @@ const Searchbar = (props) => {
             {nameInputIsInvalid && <p className="error-text">Name Must not be empty!</p>}
             <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
+        {mon ? <Showcard mon={mon}/> : <p>nothing to show</p>}
       </div>
-      
+       
     </form>
 
     );

@@ -52,9 +52,11 @@ function App() {
     <div className="App">
     <button onClick={fetchMoviesHandler}>pokemon</button>
       hi
-    <Pokemonlist  mons={dex}/>
+      <div className='container'>
+        <Pokemonlist  mons={dex}/>
 
-    <Searchbar/>
+        <Searchbar/>
+      </div>
     </div>
   );
 }
