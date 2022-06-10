@@ -36,10 +36,7 @@ const Searchbar = (props) => {
       fetch(`${url}`)
         .then(responce => {return responce.json()})
         .then(data => {
-          console.log(data)
-          
           return setMon(data) 
-          
         })
        
        
@@ -81,7 +78,7 @@ const Searchbar = (props) => {
             {nameInputIsInvalid && <p className="error-text">Name Must not be empty!</p>}
             <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
-        {mon ? <Showcard mon={mon}/> : <p>nothing to show</p>}
+        {mon.length !== 0 ? <Showcard mon={mon}/> : <p>nothing to show</p>}
       </div>
        
     </form>

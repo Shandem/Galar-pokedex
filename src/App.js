@@ -17,8 +17,9 @@ function App() {
        throw new Error('Somthing went wrong!')
      }
      const data = await responce.json()
+     console.log(data)
    
-       const transformedPokemon= data.pokemon_entries.map(pokemon => {
+       const transformedPokemon = data.pokemon_entries.map(pokemon => {
          return {
            id: pokemon.entry_number,
            name: pokemon.pokemon_species.name,

@@ -13,7 +13,7 @@ const Showcard = (props) => {
     
     return (
         <div>
-            <img src={props.mon.sprites.front_default} alt='pokemon front'/>
+           <img src={props.mon.sprites.front_default} alt='pokemon front'/> 
             <img src={props.mon.sprites.front_shiny} alt='pokemon front'/>
             <div className='title'>
                 <h2 className='name'>NAME {props.mon.name}</h2>
